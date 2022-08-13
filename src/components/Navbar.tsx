@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -15,9 +14,12 @@ const Navbar = () => {
             Pokémon
           </h1>
         </span>
+        <a href="https://github.com/LushoGV/guess-pokemon-app"> 
         <button className="bg-black rounded-md h-8 mr-3">
           <i className="nes-icon github"></i>
         </button>
+        </a>
+       
       </div>
     </nav>
   );

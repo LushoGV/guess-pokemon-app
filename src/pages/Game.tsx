@@ -101,7 +101,7 @@ const Game = () => {
       ) : (
         <GameOver />
       )}
-      {loading && (
+      {user.lives != 0 && loading && (
         <div className="flex flex-col justify-center h-96">
           <i className="nes-pokeball animate-bounce brightness-75"></i>
         </div>

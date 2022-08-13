@@ -71,7 +71,7 @@ export const ScoreProvider = ({ children }: ProviderProps) => {
 
     setInputContent("");
     setShowAlert(true);
-
+    
     setTimeout(() => {
       saveData()
       setData(initialDataState);
@@ -82,13 +82,15 @@ export const ScoreProvider = ({ children }: ProviderProps) => {
   };
 
   const restartGame = () => {
-    setData(initialDataState);
-    getData();
-    setShowAlert(false)
     setUser(initialUserState);
+    setLoading(true)
+    setData(initialDataState);
+    setShowAlert(false)
     localStorage.clear()
     setInputContent("");
-    setLoading(false)
+    setTimeout(() => {
+      getData();
+      },1000)
   };
 
   useEffect(() => {
