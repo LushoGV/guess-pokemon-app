@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, pre, code, kbd, samp {
+  font-family: 'Press Start 2P', cursive;
+}
+
+img{
+  image-rendering: pixelated;
+}
+
+.App{
+  background-image:url("//pbs.twimg.com/media/DVMT-6OXcAE2rZY?format=jpg&name=medium");
+  background-size: cover;
+  background-position: center;
+}
+
+@keyframes move {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
