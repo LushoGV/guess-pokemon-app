@@ -11,10 +11,11 @@ export interface context {
   data: pokemon;
   loading: boolean;
   showAlert: boolean;
+  gameOver: boolean,
   inputContent: string;
   setInputContent: (value: React.SetStateAction<string>) => void;
   getData: () => Promise<void>;
-  verify: () => void;
+  verify: (e:React.FormEvent) => void;
   restartGame: () => void;
 }
 
@@ -32,6 +33,7 @@ export const ScoreProvider = ({ children }: ProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<pokemon>(initialDataState);
   const [user, setUser] = useState<user>(initialUserState);
+  const [gameOver, setGameOver] = useState<boolean>(false)
   const [inputContent, setInputContent] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
@@ -53,12 +55,10 @@ export const ScoreProvider = ({ children }: ProviderProps) => {
     setTimeout(() => { 
     setLoading(false), setData(data) 
     }, 2000);
-    // setLoading(false);
-    // setData(data);
-    // console.log(data.name);
   };
 
-  const verify = () => {
+  const verify = (e:React.FormEvent) => {
+    e.preventDefault()
     if (
       inputContent.toLocaleLowerCase().trim() ===
       data.name.toLocaleLowerCase().trim()
@@ -68,10 +68,10 @@ export const ScoreProvider = ({ children }: ProviderProps) => {
       user.lives > 0 &&
        setUser({ ...user, lives: user.lives - 1, isCorrect: false });   
     }
-
     setInputContent("");
     setShowAlert(true);
     
+    user.lives === 1 ? setTimeout(()=> setGameOver(true),3000) :
     setTimeout(() => {
       saveData()
       setData(initialDataState);
@@ -82,6 +82,7 @@ export const ScoreProvider = ({ children }: ProviderProps) => {
   };
 
   const restartGame = () => {
+    setGameOver(false)
     setUser(initialUserState);
     setLoading(true)
     setData(initialDataState);
@@ -106,6 +107,7 @@ export const ScoreProvider = ({ children }: ProviderProps) => {
         user,
         data,
         showAlert,
+        gameOver,
         inputContent,
         setInputContent,
         getData,
@@ -124,6 +126,7 @@ export const useScoreContext = () => {
     user,
     data,
     showAlert,
+    gameOver,
     inputContent,
     setInputContent,
     getData,
@@ -136,6 +139,7 @@ export const useScoreContext = () => {
     user,
     data,
     showAlert,
+    gameOver,
     inputContent,
     setInputContent,
     getData,

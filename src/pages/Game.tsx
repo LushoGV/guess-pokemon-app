@@ -9,6 +9,7 @@ const Game = () => {
     loading,
     user,
     showAlert,
+    gameOver,
     inputContent,
     setInputContent,
     restartGame,
@@ -21,7 +22,7 @@ const Game = () => {
 
   return (
     <>
-      {user.lives != 0 ? (
+      {!gameOver ? (
         <>
           <header className="w-full flex flex-col justify-center items-center md:mb-8">
             <div className="overflow-x-hidden overflow-y-hidden md:overflow-visible flex flex-col items-center md:justify-between md:items-center relative w-full max-h-36 h-36">
@@ -45,8 +46,8 @@ const Game = () => {
                       : "nes-container is-rounded text-center bg-red-400 h-16 md:w-60 absolute bottom-5 md:bottom-0"
                   }
                 >
-                  <h2 className="pb-3">
-                    {user.isCorrect ? "Correct!" : "Incorrect!"}
+                  <h2 className={user.isCorrect ? "pb-3 text-green-700" : "pb-3 text-red-700"}>
+                    {data.name}
                   </h2>
                 </div>
               )}
@@ -67,7 +68,7 @@ const Game = () => {
 
               <section className="fixed bottom-0 border-4 border-gray-800 rounded-lg w-full lg:max-w-4xl md:mt-8">
                 <div className="relative flex flex-col items-center justify-center bg-gray-200 p-5 border-r-4 border-b-4 border-gray-400">
-                  <div className="flex flex-col mb-4 md:flex-row md:w-full md:mb-10">
+                  <form className="flex flex-col mb-4 md:flex-row md:w-full md:mb-10" onSubmit={(e) => verify(e)}>
                     <input
                       type="text"
                       name=""
@@ -80,18 +81,18 @@ const Game = () => {
                       }}
                       className="nes-input bg-white outline-none"
                     />
-                    <button
+                    <input
+                      value="send"
+                      type="submit"
                       disabled={!inputContent.length && true}
-                      onClick={verify}
                       className={
                         inputContent.length
                           ? "nes-btn is-warning"
                           : "nes-btn is-disabled"
                       }
-                    >
-                      enviar
-                    </button>
-                  </div>
+                    >             
+                    </input>
+                  </form>
                   <Dialog />
                 </div>
               </section>

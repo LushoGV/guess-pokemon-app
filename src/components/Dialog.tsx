@@ -12,7 +12,7 @@ const Dialog = () => {
         className="nes-btn is-primary"
         onClick={() => setDialogState(true)}
       >
-        Restart Game
+        reset
       </button>
       {dialogState && (
         <div
